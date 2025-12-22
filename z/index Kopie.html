@@ -154,6 +154,11 @@
       background: #fff;
     }
 
+    .button-opencall {
+      margin-right: 30px; /* Abstand nach unten */
+    }
+
+
     @media (max-width: 900px) {
       h1 {
         font-size: clamp(2rem, 10vw, 3.5rem);
@@ -172,7 +177,7 @@
 
     @media (max-width: 600px) {
       .bg {
-        position: absolute;
+        position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
         background-attachment: scroll;
       }
@@ -215,12 +220,13 @@
 
       <nav class="links">
         <a href="https://www.instagram.com/berghof127/">Instagram</a>
-        <a href="https://beeren.ch" target="_blank">Beeren.ch</a>
-        <a href="opencall.pdf" download>Open Call</a>
         <a href="mailto:info@pascalweidmann.com">Mail</a>
+        <a href="https://beeren.ch" target="_blank">Beeren.ch</a>
+        <a href="https://pascalweidmann.com" target="_blank">Pascal Weidmann</a>
       </nav>
 
       <div class="cta-down" id="ctaDown">
+        <a class="button button-opencall" href="opencall.pdf" download>Open Call</a>
         <a class="button" href="#portfolio">Ausstellungsarchiv ↓</a>
       </div>
 
@@ -232,7 +238,7 @@
 
     <header class="portfolio-head frame">
       <h2>Ausstellungsarchiv</h2>
-      <a class="button" href="dossier.pdf" download>Ausstellungsarchiv PDF</a>
+      <a class="button" href="Ausstellungsarchiv_Berghof127.pdf" download>PDF</a>
     </header>
 
     <div class="portfolio-pages" id="portfolioPages"></div>
@@ -270,7 +276,7 @@
 
     const img = document.createElement('img');
     img.loading = 'lazy';
-    img.src = `Dossier/dossier${i}.jpg`;
+    img.src = `dossier/dossier${i}.jpg`;
 
     img.onerror = () => wrapper.remove();
 
