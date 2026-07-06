@@ -3,7 +3,20 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Berghof127</title>
+  <title>Berghof127 – Ausstellungsraum</title>
+
+  <meta name="description" content="Berghof127 – Kunst- und Ausstellungsraum. Ausstellung 2026, Ausstellungsarchiv und Open Call."/>
+  <link rel="canonical" href="https://www.berghof127.com/"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Berghof127 – Ausstellungsraum"/>
+  <meta property="og:description" content="Berghof127 – Kunst- und Ausstellungsraum. Ausstellung 2026 und Ausstellungsarchiv."/>
+  <meta property="og:url" content="https://www.berghof127.com/"/>
+  <meta property="og:image" content="https://www.berghof127.com/hintergrundbild.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -54,6 +67,10 @@
 
 </main>
 
+<footer class="site-footer">
+  © 2026 Berghof127 / Pascal Weidmann – Alle Rechte vorbehalten. Vervielfältigung oder Verwendung der Arbeiten nur mit ausdrücklicher Genehmigung.
+</footer>
+
 <script>
 (function(){
 
@@ -74,16 +91,18 @@
     io.observe(portfolio);
   }
 
-  /* Load images from renamed folder "Dossier" */
+  /* Load images from folder "dossier" */
+  const PAGES = 46; /* Bei neuem Ausstellungsarchiv: an Seitenzahl des PDFs anpassen! */
   const container = document.getElementById('portfolioPages');
 
-  for(let i = 1; i <= 100; i++){
+  for(let i = 1; i <= PAGES; i++){
     const wrapper = document.createElement('div');
     wrapper.className = 'portfolio-page';
 
     const img = document.createElement('img');
     img.loading = 'lazy';
     img.src = `dossier/dossier${i}.jpg`;
+    img.alt = `Ausstellungsarchiv Berghof127 – Seite ${i}`;
 
     img.onerror = () => wrapper.remove();
 
