@@ -152,6 +152,16 @@ h1 {
   aspect-ratio: 2382 / 1684; /* Seitenverhältnis der PDF-Seiten – verhindert Springen beim Laden */
 }
 
+.portfolio-intro {
+  max-width: var(--maxw);
+  margin: 0 auto 2.4rem;
+  font-size: .98rem;
+  line-height: 1.65;
+  opacity: .85;
+  text-align: center;
+  padding: 0 .7rem;
+}
+
 .site-footer {
   text-align: center;
   font-size: .85rem;
