@@ -93,7 +93,7 @@ body {
        der Bedienleiste gehört nicht zur Seite und trägt ohnehin schon die
        Hintergrundfarbe. Eine deckende Fläche wäre dort wirkungslos und würde
        nur unnötig Bild verdecken. */
-    height: 64px;
+    height: 48px;
     background: linear-gradient(
       to top,
       rgb(171,163,104) 0,
@@ -326,7 +326,7 @@ h1 {
 
   /* Titelblock (Titel bis Archiv-Button) höher setzen */
   #home .frame {
-    margin-top: -9vh;
+    margin-top: 1vh;
   }
 }
 
@@ -386,9 +386,10 @@ h1 {
    Beides muss oberhalb des 120px hohen Verlaufs am unteren Rand liegen,
    sonst verschwindet es in dessen deckendem Teil. */
 @media (hover: none) and (pointer: coarse) {
-  /* Tiefer gesetzt, bleibt aber oberhalb des 64px-Verlaufs */
+  /* So tief wie möglich, ohne in den Verlauf zu geraten (dort würde es
+     verblassen). Der Verlauf ist dafür auf 48px verschmälert. */
   .supporter-fixed {
-    bottom: max(10vh, calc(env(safe-area-inset-bottom, 0px) + 4.5rem));
+    bottom: max(7vh, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));
   }
 
   .site-footer {
