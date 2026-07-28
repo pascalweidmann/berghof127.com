@@ -89,31 +89,22 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-
-    /* Fallback für Browser ohne lvh/svh */
-    height: 140px;
+    /* Nur ein schmaler Übergang direkt an der Fensterkante: Der Bereich unter
+       der Bedienleiste gehört nicht zur Seite und trägt ohnehin schon die
+       Hintergrundfarbe. Eine deckende Fläche wäre dort wirkungslos und würde
+       nur unnötig Bild verdecken. */
+    height: 64px;
     background: linear-gradient(
       to top,
       rgb(171,163,104) 0,
-      rgb(171,163,104) 96px,
-      rgba(171,163,104,0) 140px
-    );
-
-    /* Der Unterschied zwischen grösster und kleinster Viewporthöhe ist exakt
-       die Höhe der Safari-Bedienleiste. Die deckende Fläche sitzt damit genau
-       hinter der Leiste – darüber nur noch 44px weicher Übergang, statt den
-       Verlauf ins sichtbare Foto hinein wachsen zu lassen. */
-    height: calc(max(100lvh - 100svh, 120px) + 44px);
-    background: linear-gradient(
-      to top,
-      rgb(171,163,104) 0,
-      rgb(171,163,104) max(100lvh - 100svh, 120px),
+      rgb(171,163,104) 8%,
+      rgba(171,163,104,.35) 45%,
       rgba(171,163,104,0) 100%
     );
-
     pointer-events: none;
     z-index: 5;
   }
+
 }
 
 /* Der eigentliche Scroll-Container – genau fenstergross */
@@ -401,6 +392,6 @@ h1 {
   }
 
   .site-footer {
-    padding-bottom: max(17vh, calc(env(safe-area-inset-bottom, 0px) + 8rem));
+    padding-bottom: max(10vh, calc(env(safe-area-inset-bottom, 0px) + 3.5rem));
   }
 }
