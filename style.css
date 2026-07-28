@@ -24,8 +24,11 @@ html, body {
    Dadurch kann der Seitenhintergrund sich von sich aus nicht bewegen. */
 html {
   overflow: hidden;
-  height: calc(100vh + 2 * var(--rand));
-  height: calc(100lvh + 2 * var(--rand));
+  /* Zugabe NUR nach oben. Die Bildfläche endet an der KLEINEN Fensterhöhe
+     (100svh = Fenster mit eingeblendeter Bedienleiste), damit unterhalb der
+     Leiste kein Bild mehr liegt – dort erscheint dann nur die Farbe. */
+  height: calc(100vh + var(--rand));
+  height: calc(100svh + var(--rand));
   /* Exakt die Bildfarbe direkt unterhalb der Statusleiste (aus dem Foto
      gemessen). Safari faerbt die Statusleiste mit dieser Farbe – so faellt
      der Uebergang zum Bild nicht auf. Kein theme-color setzen: das wuerde
@@ -100,11 +103,11 @@ body {
        die Höhe der Safari-Bedienleiste. Die deckende Fläche sitzt damit genau
        hinter der Leiste – darüber nur noch 44px weicher Übergang, statt den
        Verlauf ins sichtbare Foto hinein wachsen zu lassen. */
-    height: calc(max(100lvh - 100svh, 56px) + 44px);
+    height: calc(max(100lvh - 100svh, 120px) + 44px);
     background: linear-gradient(
       to top,
       rgb(171,163,104) 0,
-      rgb(171,163,104) max(100lvh - 100svh, 56px),
+      rgb(171,163,104) max(100lvh - 100svh, 120px),
       rgba(171,163,104,0) 100%
     );
 
