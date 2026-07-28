@@ -20,8 +20,13 @@ html, body {
    Die Höhe 100lvh entspricht exakt der von .bg, damit beide denselben
    Bildausschnitt zeigen und deckungsgleich übereinanderliegen. */
 html {
-  height: 100lvh;
-  background: #929a5a url("hintergrundbild.jpg") center / cover no-repeat;
+  height: calc(100vh + 2 * var(--rand));
+  height: calc(100lvh + 2 * var(--rand));
+  background-color: #929a5a;
+  background-image: url("hintergrundbild.jpg");
+  background-position: center calc(-1 * var(--rand));
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* body ohne eigenen Hintergrund, sonst würde er das Bild überdecken */
@@ -32,12 +37,12 @@ body {
 
 .bg {
   position: fixed;
-  top: 0;
+  top: calc(-1 * var(--rand));
   left: 0;
   right: 0;
-  height: 100vh;
   /* lvh = grösste Viewporthöhe: bleibt gefüllt, wenn die Browserleiste einfährt */
-  height: 100lvh;
+  height: calc(100vh + 2 * var(--rand));
+  height: calc(100lvh + 2 * var(--rand));
   background: url("hintergrundbild.jpg") center/cover no-repeat;
   z-index: -1;
   will-change: transform;
@@ -45,6 +50,11 @@ body {
 
 :root {
   --maxw: 900px;
+  /* Randzugabe über und unter dem Fenster, damit das Bild bis unter Status-
+     und Bedienleiste reicht. Beide Bildebenen nutzen exakt dieselbe Geometrie,
+     damit sie deckungsgleich bleiben und keine Kante entsteht. Preis dafür:
+     das Bild ist minim stärker angeschnitten. */
+  --rand: 70px;
 }
 
 .section {
