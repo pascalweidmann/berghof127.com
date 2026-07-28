@@ -45,9 +45,11 @@ body {
 /* Weicher Übergang von der Statusleiste ins Foto.
    iOS füllt die Statusleiste nur mit der background-color (nachgemessen: ein
    background-image wird dort nie gezeichnet, auch nicht mit Randzugabe). Der
-   Verlauf beginnt oben in genau dieser Farbe und läuft ins Bild aus, damit
-   dazwischen keine Kante sichtbar ist. Unten braucht es das nicht – dort legt
-   Safari selbst einen Verlauf über den Inhalt.
+   Verlauf beginnt am Rand in genau dieser Farbe und läuft ins Bild aus, damit
+   dazwischen keine Kante sichtbar ist – oben wie unten.
+
+   z-index: -1 legt den Verlauf hinter den Seiteninhalt, aber über das Foto –
+   so wird nur das Bild eingefärbt, Logo und Text bleiben unberührt.
 
    Nur auf Touchgeräten: Am Rechner gibt es keine Statusleiste, dort wäre der
    Verlauf bloss ein Schleier ohne Zweck. */
@@ -67,7 +69,26 @@ body {
       rgba(171,163,104,0) 100%
     );
     pointer-events: none;
-    z-index: 10;
+    z-index: -1;
+  }
+
+  /* Dasselbe am unteren Rand, gespiegelt. */
+  body::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: linear-gradient(
+      to top,
+      rgb(171,163,104) 0,
+      rgba(171,163,104,.72) 28%,
+      rgba(171,163,104,.28) 60%,
+      rgba(171,163,104,0) 100%
+    );
+    pointer-events: none;
+    z-index: -1;
   }
 }
 
@@ -288,9 +309,9 @@ h1 {
       max(5vw, env(safe-area-inset-left, 0px));
   }
 
-  /* Titelblock (Titel bis Archiv-Button) etwas höher setzen */
+  /* Titelblock (Titel bis Archiv-Button) höher setzen */
   #home .frame {
-    margin-top: -7vh;
+    margin-top: -14vh;
   }
 }
 
@@ -343,4 +364,13 @@ h1 {
 .supporter-fixed img {
   width: clamp(66px, 16vw, 96px);
   height: auto;
+}
+
+/* Muss nach der Grundregel oben stehen, sonst überschreibt diese den Wert
+   wieder (gleiche Spezifität – die spätere Regel gewinnt). */
+@media (max-width: 600px) {
+  /* Logo etwas höher, weg vom unteren Rand */
+  .supporter-fixed {
+    bottom: max(9vh, calc(env(safe-area-inset-bottom, 0px) + 3rem));
+  }
 }
