@@ -26,7 +26,11 @@ html {
   overflow: hidden;
   height: calc(100vh + 2 * var(--rand));
   height: calc(100lvh + 2 * var(--rand));
-  background-color: #929a5a;
+  /* Exakt die Bildfarbe direkt unterhalb der Statusleiste (aus dem Foto
+     gemessen). Safari faerbt die Statusleiste mit dieser Farbe – so faellt
+     der Uebergang zum Bild nicht auf. Kein theme-color setzen: das wuerde
+     auch die untere Leiste wieder deckend machen, wo jetzt das Bild steht. */
+  background-color: #aba368;
   background-image: url("hintergrundbild.jpg");
   background-position: center calc(-1 * var(--rand));
   background-size: cover;
