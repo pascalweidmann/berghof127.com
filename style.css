@@ -259,8 +259,9 @@ h1 {
       max(5vw, env(safe-area-inset-left, 0px));
   }
 
+  /* Titelblock (Titel bis Archiv-Button) etwas höher setzen */
   #home .frame {
-    margin-top: 0;
+    margin-top: -7vh;
   }
 }
 
