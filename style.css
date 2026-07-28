@@ -8,6 +8,9 @@ html, body {
   -webkit-font-smoothing: antialiased;
   color: #fff;
   scroll-behavior: smooth;
+  /* Kein Gummiband-Effekt am oberen/unteren Rand: Dort würde beim Überziehen
+     sonst der Seitenhintergrund statt des Bildes sichtbar (iOS 16+, Chrome) */
+  overscroll-behavior: none;
 }
 
 body {
