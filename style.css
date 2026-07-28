@@ -48,8 +48,10 @@ body {
    Verlauf beginnt am Rand in genau dieser Farbe und läuft ins Bild aus, damit
    dazwischen keine Kante sichtbar ist – oben wie unten.
 
-   z-index: -1 legt den Verlauf hinter den Seiteninhalt, aber über das Foto –
-   so wird nur das Bild eingefärbt, Logo und Text bleiben unberührt.
+   Beide liegen ÜBER dem Inhalt (z-index: 5) und sind am Rand deckend: So löst
+   sich der Inhalt schon im Verlauf auf statt erst an der Kante, und Safari
+   "sieht" unter seiner Bedienleiste nur Farbe. Deren Unschärfe greift weit
+   nach oben – deshalb ist der untere Bereich mit 220px grosszügig bemessen.
 
    Nur auf Touchgeräten: Am Rechner gibt es keine Statusleiste, dort wäre der
    Verlauf bloss ein Schleier ohne Zweck. */
@@ -60,16 +62,16 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 72px;
+    height: 100px;
     background: linear-gradient(
       to bottom,
       rgb(171,163,104) 0,
-      rgba(171,163,104,.72) 28%,
-      rgba(171,163,104,.28) 60%,
+      rgb(171,163,104) 18%,
+      rgba(171,163,104,.55) 55%,
       rgba(171,163,104,0) 100%
     );
     pointer-events: none;
-    z-index: -1;
+    z-index: 5;
   }
 
   /* Unterer Rand: Dieser Verlauf liegt ÜBER dem Inhalt und ist ganz unten
@@ -83,12 +85,12 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 120px;
+    height: 220px;
     background: linear-gradient(
       to top,
       rgb(171,163,104) 0,
-      rgb(171,163,104) 30%,
-      rgba(171,163,104,.55) 62%,
+      rgb(171,163,104) 45%,
+      rgba(171,163,104,.5) 72%,
       rgba(171,163,104,0) 100%
     );
     pointer-events: none;
@@ -375,8 +377,9 @@ h1 {
    Beides muss oberhalb des 120px hohen Verlaufs am unteren Rand liegen,
    sonst verschwindet es in dessen deckendem Teil. */
 @media (hover: none) and (pointer: coarse) {
+  /* Etwas tiefer als zuvor, aber noch oberhalb des deckenden Teils */
   .supporter-fixed {
-    bottom: max(17vh, calc(env(safe-area-inset-bottom, 0px) + 8rem));
+    bottom: max(14vh, calc(env(safe-area-inset-bottom, 0px) + 6.5rem));
   }
 
   .site-footer {
