@@ -72,23 +72,27 @@ body {
     z-index: -1;
   }
 
-  /* Dasselbe am unteren Rand, gespiegelt. */
+  /* Unterer Rand: Dieser Verlauf liegt ÜBER dem Inhalt und ist ganz unten
+     deckend. Dadurch "sieht" Safari dort nur die Hintergrundfarbe und die
+     Bedienleiste erscheint flächig wie die Statusleiste oben, statt einen
+     verschwommenen Bildausschnitt zu zeigen. Gleichzeitig tauchen die
+     Portfolio-Seiten weich daraus auf, statt an einer harten Kante zu enden. */
   body::after {
     content: "";
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 72px;
+    height: 120px;
     background: linear-gradient(
       to top,
       rgb(171,163,104) 0,
-      rgba(171,163,104,.72) 28%,
-      rgba(171,163,104,.28) 60%,
+      rgb(171,163,104) 30%,
+      rgba(171,163,104,.55) 62%,
       rgba(171,163,104,0) 100%
     );
     pointer-events: none;
-    z-index: -1;
+    z-index: 5;
   }
 }
 
@@ -366,11 +370,16 @@ h1 {
   height: auto;
 }
 
-/* Muss nach der Grundregel oben stehen, sonst überschreibt diese den Wert
-   wieder (gleiche Spezifität – die spätere Regel gewinnt). */
-@media (max-width: 600px) {
-  /* Logo etwas höher, weg vom unteren Rand */
+/* Muss nach den Grundregeln oben stehen, sonst überschreiben diese die Werte
+   wieder (gleiche Spezifität – die spätere Regel gewinnt).
+   Beides muss oberhalb des 120px hohen Verlaufs am unteren Rand liegen,
+   sonst verschwindet es in dessen deckendem Teil. */
+@media (hover: none) and (pointer: coarse) {
   .supporter-fixed {
-    bottom: max(9vh, calc(env(safe-area-inset-bottom, 0px) + 3rem));
+    bottom: max(17vh, calc(env(safe-area-inset-bottom, 0px) + 8rem));
+  }
+
+  .site-footer {
+    padding-bottom: max(17vh, calc(env(safe-area-inset-bottom, 0px) + 8rem));
   }
 }
