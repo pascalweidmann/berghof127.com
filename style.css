@@ -42,6 +42,35 @@ body {
   overflow: hidden;
 }
 
+/* Weicher Übergang von der Statusleiste ins Foto.
+   iOS füllt die Statusleiste nur mit der background-color (nachgemessen: ein
+   background-image wird dort nie gezeichnet, auch nicht mit Randzugabe). Der
+   Verlauf beginnt oben in genau dieser Farbe und läuft ins Bild aus, damit
+   dazwischen keine Kante sichtbar ist. Unten braucht es das nicht – dort legt
+   Safari selbst einen Verlauf über den Inhalt.
+
+   Nur auf Touchgeräten: Am Rechner gibt es keine Statusleiste, dort wäre der
+   Verlauf bloss ein Schleier ohne Zweck. */
+@media (hover: none) and (pointer: coarse) {
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: linear-gradient(
+      to bottom,
+      rgb(171,163,104) 0,
+      rgba(171,163,104,.72) 28%,
+      rgba(171,163,104,.28) 60%,
+      rgba(171,163,104,0) 100%
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
 /* Der eigentliche Scroll-Container – genau fenstergross */
 .scroller {
   position: fixed;
