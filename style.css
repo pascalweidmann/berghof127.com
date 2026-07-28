@@ -13,9 +13,15 @@ html, body {
   overscroll-behavior: none;
 }
 
+/* Das Foto ist der Seitenhintergrund selbst (nicht nur ein Element darin):
+   Aus dieser Fläche leitet iOS die Färbung von Status- und Bedienleiste ab.
+   Der Farbwert dahinter ist nur Reserve, falls das Bild noch nicht geladen ist. */
+html {
+  background: #929a5a url("hintergrundbild.jpg") center / cover no-repeat fixed;
+}
+
+/* body bewusst ohne eigenen Hintergrund – sonst würde er das Bild überdecken */
 body {
-  /* Grundton aus dem Hintergrundbild – so ist nie ein schwarzer Rand sichtbar */
-  background: #929a5a;
   position: relative;
   overflow-x: hidden;
 }
