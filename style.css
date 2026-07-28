@@ -50,8 +50,9 @@ body {
 
    Beide liegen ÜBER dem Inhalt (z-index: 5) und sind am Rand deckend: So löst
    sich der Inhalt schon im Verlauf auf statt erst an der Kante, und Safari
-   "sieht" unter seiner Bedienleiste nur Farbe. Deren Unschärfe greift weit
-   nach oben – deshalb ist der untere Bereich mit 220px grosszügig bemessen.
+   "sieht" unter seiner Bedienleiste nur Farbe. Die deckende Fläche ist unten
+   exakt so hoch wie die Bedienleiste selbst (100lvh - 100svh), damit der
+   Verlauf nicht unnötig weit ins sichtbare Foto hineinreicht.
 
    Nur auf Touchgeräten: Am Rechner gibt es keine Statusleiste, dort wäre der
    Verlauf bloss ein Schleier ohne Zweck. */
@@ -85,14 +86,28 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 220px;
+
+    /* Fallback für Browser ohne lvh/svh */
+    height: 140px;
     background: linear-gradient(
       to top,
       rgb(171,163,104) 0,
-      rgb(171,163,104) 45%,
-      rgba(171,163,104,.5) 72%,
+      rgb(171,163,104) 96px,
+      rgba(171,163,104,0) 140px
+    );
+
+    /* Der Unterschied zwischen grösster und kleinster Viewporthöhe ist exakt
+       die Höhe der Safari-Bedienleiste. Die deckende Fläche sitzt damit genau
+       hinter der Leiste – darüber nur noch 44px weicher Übergang, statt den
+       Verlauf ins sichtbare Foto hinein wachsen zu lassen. */
+    height: calc(max(100lvh - 100svh, 56px) + 44px);
+    background: linear-gradient(
+      to top,
+      rgb(171,163,104) 0,
+      rgb(171,163,104) max(100lvh - 100svh, 56px),
       rgba(171,163,104,0) 100%
     );
+
     pointer-events: none;
     z-index: 5;
   }
