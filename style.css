@@ -326,7 +326,7 @@ h1 {
 
   /* Titelblock (Titel bis Archiv-Button) höher setzen */
   #home .frame {
-    margin-top: -14vh;
+    margin-top: -9vh;
   }
 }
 
@@ -386,9 +386,9 @@ h1 {
    Beides muss oberhalb des 120px hohen Verlaufs am unteren Rand liegen,
    sonst verschwindet es in dessen deckendem Teil. */
 @media (hover: none) and (pointer: coarse) {
-  /* Etwas tiefer als zuvor, aber noch oberhalb des deckenden Teils */
+  /* Tiefer gesetzt, bleibt aber oberhalb des 64px-Verlaufs */
   .supporter-fixed {
-    bottom: max(14vh, calc(env(safe-area-inset-bottom, 0px) + 6.5rem));
+    bottom: max(10vh, calc(env(safe-area-inset-bottom, 0px) + 4.5rem));
   }
 
   .site-footer {
