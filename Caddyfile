@@ -1,0 +1,80 @@
+# Eigene Caddy-Konfiguration fuer Railway/Railpack.
+# Basis: Railpacks Default-Template (staticfile-Provider), ergaenzt um Cache-Control.
+#
+# ACHTUNG: Railpack jagt diese Datei durch Go-Templating, BEVOR Caddy sie liest.
+# Caddys #-Kommentare schuetzen nicht davor. Also niemals Go-Template-Syntax
+# in Kommentare schreiben - ein unbalancierter if-Block zerlegt die Config.
+# Die Platzhalter weiter unten (Root-Pfad, SPA-Fallback) muessen stehen bleiben.
+{
+	admin off
+	persist_config off
+	auto_https off
+
+	log {
+		format json
+	}
+
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+:{$PORT:80} {
+	log {
+		format json
+	}
+
+	respond /health 200
+
+	# Security headers
+	header {
+		# Enable cross-site filter (XSS) and tell browsers to block detected attacks
+		X-XSS-Protection "1; mode=block"
+		# Prevent some browsers from MIME-sniffing a response away from the declared Content-Type
+		X-Content-Type-Options "nosniff"
+		# Keep referrer data off of HTTP connections
+		Referrer-Policy "strict-origin-when-cross-origin"
+		# Enable strict Content Security Policy
+		Content-Security-Policy "default-src 'self'; img-src 'self' data: https: *; style-src 'self' 'unsafe-inline' https: *; script-src 'self' 'unsafe-inline' https: *; font-src 'self' data: https: *; connect-src 'self' https: *; media-src 'self' https: *; object-src 'none'; frame-src 'self' https: *;"
+		# Remove Server header
+		-Server
+	}
+
+	# --- Cache-Control ---------------------------------------------------
+	# Ohne Cache-Control raten Browser die Cache-Dauer ("heuristic freshness",
+	# ~10% des Alters seit Last-Modified). Dadurch blieben Aenderungen bis zu
+	# ~1.5 Tage unsichtbar. Darum hier explizit setzen.
+
+	# HTML und alles, was unter gleichem Namen ersetzt wird (PDF, Sitemap):
+	# Browser fragt jedes Mal nach (billiges 304), CDN darf kurz ausliefern.
+	@revalidate path / *.html *.pdf *.xml *.txt
+	header @revalidate Cache-Control "public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=300"
+
+	# Statische Assets: 7 Tage. Bewusst nicht 1 Jahr, weil die Dateinamen
+	# keinen Content-Hash haben (style.css wird per ?v=NN invalidiert).
+	@assets path *.css *.js *.jpg *.jpeg *.png *.gif *.svg *.webp *.ico *.woff *.woff2
+	header @assets Cache-Control "public, max-age=604800"
+	# ---------------------------------------------------------------------
+
+	root * {{.StaticFileRoot}}
+
+	# Handle static files
+	file_server {
+		hide .git
+		hide .env*
+	}
+
+	# Compression with more formats
+	encode {
+		gzip
+		zstd
+	}
+
+	# Try files with HTML extension{{if .IndexFallback}} and handle SPA routing{{end}}
+	try_files {path} {path}.html {path}/index.html{{if .IndexFallback}} /index.html{{end}}
+
+	handle_errors {
+		rewrite * /{err.status_code}.html
+		file_server
+	}
+}
