@@ -51,7 +51,7 @@
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 
-  <link rel="stylesheet" href="style.css?v=24"/>
+  <link rel="stylesheet" href="style.css?v=34"/>
 </head>
 
 <body>
@@ -68,7 +68,7 @@
 
       <nav class="links">
         <a href="https://www.instagram.com/berghof127/">Instagram</a>
-        <a href="mailto:info@pascalweidmann.com">Mail</a>
+        <a href="mailto:info@berghof127.com">Mail</a>
         <a href="https://beeren.ch" target="_blank">Beeren.ch</a>
         <a href="https://pascalweidmann.com" target="_blank" class="pw-link">
           <span class="pw-full">Pascal Weidmann</span>
@@ -92,8 +92,16 @@
     </p>
 
     <div class="supporter-fixed">
-      <div class="supporter-label">unterstützt durch:</div>
-      <img src="logo_kulturkomission.png" alt="Kulturkommission Embrach">
+      <div class="supporter">
+        <div class="supporter-label">unterstützt durch:</div>
+        <img src="logo_kulturkomission.png" alt="Kulturkommission Embrach">
+      </div>
+      <div class="supporter">
+        <div class="supporter-label">Partnerschaft mit:</div>
+        <!-- Fehlt die Datei, verschwindet die ganze Spalte statt ein kaputtes Bild zu zeigen -->
+        <img src="logo_post.png" alt="Die Post – Kunstengagement"
+             onerror="this.closest('.supporter').remove()">
+      </div>
     </div>
   </section>
 

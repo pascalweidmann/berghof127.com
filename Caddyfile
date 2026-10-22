@@ -48,11 +48,11 @@
 	# HTML und alles, was unter gleichem Namen ersetzt wird (PDF, Sitemap):
 	# Browser fragt jedes Mal nach (billiges 304), CDN darf kurz ausliefern.
 	#
-	# Die Ausstellungsseiten sind mit .html verlinkt und damit abgedeckt. Wer die
-	# Adresse von Hand ohne Endung tippt, bekommt kein Cache-Control: try_files
-	# haengt das .html erst weiter unten an, header laeuft vorher und sieht die
-	# Adresse noch ohne Endung. Ein path_regexp, der beides trifft, stand hier
-	# schon - danach blieb der Deploy aus, darum wieder die einfache Liste.
+	# *.html deckt die Ausstellungsseiten auch dann ab, wenn die Adresse ohne
+	# Endung getippt wird: try_files haengt das .html an, bevor dieser Matcher
+	# ausgewertet wird (am 22.10.2026 an der Live-Seite nachgemessen). Ein
+	# path_regexp fuer beide Formen stand hier schon, war also unnoetig - und
+	# danach blieb der Deploy aus. Darum: einfache Liste.
 	@revalidate path / *.html *.pdf *.xml *.txt
 	header @revalidate Cache-Control "public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=300"
 
