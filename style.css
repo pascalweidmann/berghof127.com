@@ -187,11 +187,6 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  transition: opacity .35s ease;
-}
-.cta-down.is-hidden {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .button {
@@ -208,6 +203,14 @@ h1 {
   transition: border-color .2s ease;
 }
 
+/* Die Ausstellungen sind der einzige Weg von der Startseite weiter – ihre
+   Knöpfe dürfen grösser sein als der PDF- und der Zurück-Knopf. Die höhere
+   Spezifität setzt sich auch gegen die Handy-Regel weiter unten durch. */
+.cta-down .button {
+  padding: .72rem 1.5rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.25rem);
+}
+
 .portfolio {
   padding:
     6vh
@@ -217,23 +220,23 @@ h1 {
   display: block;
 }
 
+/* Zurueck-Link | Ausstellungstitel | PDF-Knopf. Der Innenabstand sitzt an der
+   Zeile selbst, damit alle drei denselben Rand haben wie die Dossier-Seiten. */
 .portfolio-head {
   max-width: var(--maxw);
   margin: 0 auto 2.6rem;
+  padding: 0 .7rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .9rem 1rem;
 }
 
 .portfolio-head h2 {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 600;
   letter-spacing: .01em;
-  padding-left: 0.6rem;
-}
-
-.portfolio-head .button {
-  margin-right: 0.7rem;
 }
 
 .portfolio-pages {
@@ -324,9 +327,17 @@ h1 {
       max(5vw, env(safe-area-inset-left, 0px));
   }
 
-  /* Titelblock (Titel bis Archiv-Button) höher setzen */
+  /* Titelblock (Titel bis Ausstellungs-Knöpfe) höher setzen */
   #home .frame {
     margin-top: 1vh;
+  }
+
+  /* Zu dritt wird die Kopfzeile zu eng: Titel auf eine eigene Zeile darüber,
+     darunter Zurück und PDF an den beiden Rändern. */
+  .portfolio-head h2 {
+    order: -1;
+    width: 100%;
+    text-align: center;
   }
 }
 

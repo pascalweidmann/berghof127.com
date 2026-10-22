@@ -47,7 +47,13 @@
 
 	# HTML und alles, was unter gleichem Namen ersetzt wird (PDF, Sitemap):
 	# Browser fragt jedes Mal nach (billiges 304), CDN darf kurz ausliefern.
-	@revalidate path / *.html *.pdf *.xml *.txt
+	#
+	# Der Ausdruck trifft .html .pdf .xml .txt sowie alles OHNE Punkt im Pfad.
+	# Letzteres, weil /mischkulturen-2025 ohne Endung getippt erst weiter unten
+	# per try_files zur Datei wird - header laeuft vorher und saehe die Adresse
+	# dann noch ohne .html. Verlinkt sind die Seiten mit Endung, damit sie sich
+	# auch lokal per Doppelklick oeffnen lassen.
+	@revalidate path_regexp "^(?:[^.]*|.*[.](?:html|pdf|xml|txt))$"
 	header @revalidate Cache-Control "public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=300"
 
 	# Statische Assets: 7 Tage. Bewusst nicht 1 Jahr, weil die Dateinamen
