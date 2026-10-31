@@ -62,6 +62,19 @@
 	header @assets Cache-Control "public, max-age=604800"
 	# ---------------------------------------------------------------------
 
+	# --- Suchmaschinen ---------------------------------------------------
+	# Die PDFs sind Bild-PDFs ohne Textebene. Google liest sie trotzdem per
+	# OCR und indexiert sie dann mit einem Titel, den es sich aus dem Bild
+	# zusammenreimt - der Finissage-Flyer stand als "Alice McCabe" in den
+	# Suchergebnissen, direkt neben der eigenen Seite. Inhaltlich doppeln die
+	# PDFs die HTML-Seiten, nur als 24- bis 39-MB-Download. Ueber die
+	# PDF-Knoepfe bleiben sie erreichbar, aus der Suche fallen sie raus.
+	#
+	# Wieder einfache Pfadliste, kein path_regexp - siehe Kommentar oben.
+	@pdf path *.pdf
+	header @pdf X-Robots-Tag "noindex"
+	# ---------------------------------------------------------------------
+
 	root * {{.StaticFileRoot}}
 
 	# Handle static files
